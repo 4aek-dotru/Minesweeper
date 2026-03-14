@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div id="main-container">
+            <div id="game-name">
+                <h1>MineSweeper</h1>
+            </div>
+            <button id="game-settings-button">
+                <h2>Настроить игру</h2>
+            </button>
+        </div>
+        
+        <div id="game-settings-form">
+            <button class="difficulty-selector-button" data-row="9" data-mines="10">
+                <p>Лёгкий уровень сложности</p>
+                <p>9x9 клеток, 10 мин</p>
+            </button>
+            <button class="difficulty-selector-button" data-row="16" data-mines="40">
+                <p>Средний уровень сложности</p>
+                <p>16x16 клеток, 40 мин</p>
+            </button>
+            <button class="difficulty-selector-button" data-row="30" data-mines="100">
+                <p>Жёсткий уровень сложности</p>
+                <p>30x30 клеток, 100 мин</p>
+            </button>
+            <button id="game-settings-custom-button">Пользовательские <br> настройки</button>
+        </div>
+        <form id="game-settings-form-custom">
+            <p>Размер клеток 27x27px, не рекомендуется выставлять количество строк выше 30 при FullHD мониторе</p>
+            <div class="custom-settings-inputs">
+                <p>Количество строк</p>
+                <input type="number" name="rows">
+            </div>
+            <div class="custom-settings-inputs">
+                <p>Количество столбцов</p>
+                <input type="number" name="columns">
+            </div>
+            <div class="custom-settings-inputs">
+                <p>Количество мин</p>
+                <input type="number" name="mines">
+            </div>
+            <button id="go-custom-game" type="submit">Начать игру</button>
+        </form>
+        <div id="minefield"></div>
+    </main>
+</body>
+<script src="main.mjs" type="module"></script>
+</html>

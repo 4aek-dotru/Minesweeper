@@ -1,0 +1,180 @@
+* {
+    margin: unset;
+    padding: unset;
+}
+body {
+    background-color: #DADADA;
+}
+main{
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 35px;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+#game-settings-form {
+    display: none;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.33);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 70px;
+}
+.difficulty-selector-button {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 300px;
+    border-radius: 10px;
+    background: #A7A7A7;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: white;
+    font-size: 16px;
+    border: unset;
+}
+#game-settings-button {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 300px;
+    border-radius: 10px;
+    background: #3D3D3D;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: white;
+    font-size: 16px;
+    border: unset;
+}
+#game-settings-custom-button {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 300px;
+    border-radius: 10px;
+    background: #3D3D3D;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: white;
+    font-size: 16px;
+    border: unset;
+}
+#game-settings-form-custom {
+    display: none;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.33);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    width: 300px;
+    backdrop-filter: blur(4px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    gap: 10px;
+    color: #6E6E6E;
+    font-size: 16px;
+    align-items: center;
+    padding: 70px;
+}
+.custom-settings-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    width: 300px;
+    border-radius: 10px;
+    background-color: #A7A7A7;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: white;
+    box-sizing: border-box;
+}
+input {
+    outline: none;
+    border: unset;
+    border-bottom: 1px solid white;
+    background: none;
+    color: white;
+    width: fit-content;
+    box-sizing: content-box;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+#go-custom-game {
+    display: flex;
+    width: 300px;
+    gap: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: #3D3D3D;
+    border-radius: 10px;
+    border: unset;
+    color: white;
+}
+#minefield {
+    display: none;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.33);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    gap: 2px;
+    color: #6E6E6E;
+    font-size: 16px;
+    align-items: center;
+    padding: 10px;
+}
+.row {
+    display: flex;
+    gap: 2px;
+}
+.cell {
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+    width:27px;
+    height: 27px;
+    background: #A7A7A7;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.opened {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    background: #E0E0E0;
+}
+.opened-mine {
+    background: rgb(182, 29, 29);
+}
+.mine {
+    background: rgb(100, 0, 0);
+}
+.flaged {
+    background: rgb(48, 48, 255);
+}
