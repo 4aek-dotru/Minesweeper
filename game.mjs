@@ -47,17 +47,22 @@ export default class Game {
     }
 
     clickOnCell(cell, first_click = 0) {
-        console.log(`Клики: ${this._CLICKS}`);
         if(first_click == 1){
             console.log(cell)
             this.generateMines(cell);
+            return
+        }
+        if(cell.classList == 'cell opened'){
+            this.checkNeighbors(cell, 0, 1)
+            return
+        }
+        if(cell.classList == 'cell flaged'){
+            return
+        }
+        if(this.isMine(cell) == 0){
+            this.checkNeighbors(cell);
         }else{
-            if(this.isMine(cell) == 0){
-                this.checkNeighbors(cell);
-            }else{
-                this.openMines(cell);
-            }
-
+            this.openMines(cell);
         }
     }
 
@@ -96,10 +101,11 @@ export default class Game {
             return null
         }
     }
-    checkNeighbors(cell, first_click = 0) {
-        let x = Number(cell.dataset.x);
-        let y = Number(cell.dataset.y);
+    checkNeighbors(cell, first_click = 0, isCheck = 0) {
+        const x = Number(cell.dataset.x);
+        const y = Number(cell.dataset.y);
         let minesCount = 0;
+        let flagsCount = 0;
         let neighbors = [];
         for(let i = -1; i < 2; i++){
             for(let k = -1; k < 2; k++){
@@ -107,9 +113,8 @@ export default class Game {
                 const neighbor = document.querySelector(`.cell[data-x="${x + k}"][data-y="${y + i}"]:not(.opened)`);
 
                 if(neighbor != null) {
-                    neighbors.push(neighbor);
-                    console.log(neighbors[0])
-                    console.log(neighbor)
+                    if(neighbor.classList.contains('flaged')) flagsCount++;
+                    else neighbors.push(neighbor);
 
                     const isMine = this.isMine(neighbor);
                     console.log(isMine)
@@ -117,24 +122,35 @@ export default class Game {
                 }
             }
         }
-        if(minesCount != 0){
-            cell.innerHTML = `${minesCount}`;
-            this.openCell(cell);
-        }else{
-            cell.innerHTML = ``;
-            this.openCell(cell);
-            for(let neighborCell of neighbors){
-                this.checkNeighbors(neighborCell);
+        if(isCheck == 1) {
+            if(flagsCount == minesCount) {
+                for(let neighborCell of neighbors){
+                    if(this.isMine(neighborCell) == 1) this.openMines(neighborCell);
+                    else {
+                        this.checkNeighbors(neighborCell);
+                    }
+                }
             }
         }
-        console.log(`количество мин вокруг: ${minesCount}`)
-        if(first_click !== 0){
+        else {
             if(minesCount != 0){
-                this.generateMines(cell, 1)
-
-            }else {
-                this._CLICKS = 1;
+                cell.innerHTML = `${minesCount}`;
                 this.openCell(cell);
+            }else{
+                cell.innerHTML = ``;
+                this.openCell(cell);
+                for(let neighborCell of neighbors){
+                    this.checkNeighbors(neighborCell);
+                }
+            }
+            console.log(`количество мин вокруг: ${minesCount}`)
+            if(first_click !== 0){
+                if(minesCount != 0){
+                    this.generateMines(cell, 1)
+                }else {
+                    this._CLICKS = 1;
+                    this.openCell(cell);
+                }
             }
         }
     }
