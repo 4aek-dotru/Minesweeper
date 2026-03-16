@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MINESWEEPER</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
@@ -18,22 +24,23 @@
         </div>
         
         <div id="game-settings-form">
-            <button class="difficulty-selector-button" data-row="9" data-mines="10">
+            <button class="difficulty-selector-button" data-row="9" data-mines="15">
                 <p>Лёгкий уровень сложности</p>
-                <p>9x9 клеток, 10 мин</p>
+                <p>9x9 клеток, 15 мин</p>
             </button>
-            <button class="difficulty-selector-button" data-row="16" data-mines="40">
+            <button class="difficulty-selector-button" data-row="16" data-mines="50">
                 <p>Средний уровень сложности</p>
-                <p>16x16 клеток, 40 мин</p>
+                <p>16x16 клеток, 50 мин</p>
             </button>
-            <button class="difficulty-selector-button" data-row="30" data-mines="100">
+            <button class="difficulty-selector-button" data-row="25" data-mines="150">
                 <p>Жёсткий уровень сложности</p>
-                <p>30x30 клеток, 100 мин</p>
+                <p>25x25 клеток, 150 мин</p>
             </button>
             <button id="game-settings-custom-button">Пользовательские <br> настройки</button>
         </div>
         <form id="game-settings-form-custom">
-            <p>Размер клеток 27x27px, не рекомендуется выставлять количество строк выше 30 при FullHD мониторе</p>
+            <img src="images/pngwing.com (5).png" id="back-to-basic-settings">
+            <p>Размер клеток 33x33px, не рекомендуется выставлять количество строк выше 25 при FullHD мониторе</p>
             <div class="custom-settings-inputs">
                 <p>Количество строк</p>
                 <input type="number" name="rows">
@@ -48,7 +55,21 @@
             </div>
             <button id="go-custom-game" type="submit">Начать игру</button>
         </form>
-        <div id="minefield"></div>
+        <div id="minefield-container">
+            <div id="restart-in-game"><img src="images/pngwing.com (1).png"></div>
+            <div id="minefield"></div>
+            <div id="count-mines-container">
+                <p id="count-mines"></p>
+                <img src="images/pngwing.com (2).png">
+            </div>
+        </div>
+        <div id="container-end-game">
+            <div id="end-game">
+                <p id="end-game-text"></p>
+                <button id="restart-game">Начать заново</button>
+                <button id="main-menu">Главное меню</button>
+            </div>
+        </div>
     </main>
 </body>
 <script src="main.mjs" type="module"></script>

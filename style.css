@@ -1,6 +1,10 @@
 * {
     margin: unset;
     padding: unset;
+    font-size: 16px;
+    font-family: "Montserrat Alternates", sans-serif;
+    user-select: none;
+    font-weight: bold;
 }
 body {
     background-color: #DADADA;
@@ -16,11 +20,16 @@ main{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    font-size: 35px;
     width: 100vw;
     height: 100vh;
     align-items: center;
     justify-content: center;
+}
+#main-container > div > h1 {
+    font-size: 65px !important;
+}
+#main-container > button > h2 {
+    font-size: 25px !important;
 }
 #game-settings-form {
     display: none;
@@ -121,6 +130,13 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+#back-to-basic-settings {
+    width: 15px;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    cursor: pointer;
+}
 #go-custom-game {
     display: flex;
     width: 300px;
@@ -133,16 +149,24 @@ input::-webkit-inner-spin-button {
     border: unset;
     color: white;
 }
-#minefield {
+#count-mines-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#minefield-container {
     display: none;
-    position: absolute;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+#minefield {
+    display: flex;
     background: rgba(255, 255, 255, 0.33);
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(4px);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     flex-direction: column;
     gap: 2px;
     color: #6E6E6E;
@@ -150,24 +174,40 @@ input::-webkit-inner-spin-button {
     align-items: center;
     padding: 10px;
 }
+#restart-in-game > img {
+    width: 30px;
+}
+#count-mines-container > img {
+    width: 25px;
+}
 .row {
     display: flex;
     gap: 2px;
 }
+.cell:not(.opened):hover {
+    background: #BCBCBC;
+}
 .cell {
-    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
-    width:27px;
-    height: 27px;
+    box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    font-family: "Roboto", sans-serif !important;
+    width:33px;
+    height: 33px;
     background: #A7A7A7;
     border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-size: 24px !important;
+    font-weight: bolder;
 }
 .opened {
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    box-shadow: 0px -5px 4px 0px rgba(0, 0, 0, 0.25) inset;
     background: #E0E0E0;
+}
+.checked {
+    transition: 0.1s;
+    background: #BCBCBC;
 }
 .opened-mine {
     background: rgb(182, 29, 29);
@@ -176,5 +216,47 @@ input::-webkit-inner-spin-button {
     background: rgb(100, 0, 0);
 }
 .flaged {
-    background: rgb(48, 48, 255);
+    background-size: 15px !important;
+    background-position: center !important;
+    background-image: url(images/Vector\ 1.svg) !important;
+    background-repeat: no-repeat !important;
+}
+#container-end-game {
+    display: none;
+}
+.container-end-game {
+    position: absolute;
+    display: flex !important;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+#end-game-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+#end-game {
+    backdrop-filter: blur(2.5px); 
+    background: rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 60px;
+    gap: 10px;
+}
+#end-game > button {
+    border: unset;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: #747474;
 }

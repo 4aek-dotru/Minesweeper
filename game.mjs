@@ -4,12 +4,14 @@ export default class Game {
     _MINES;
     _MINES_POS = [];
     _CLICKS = 0;
+    _ALL_CELLS;
+    _MINES_FOR_COUNTING;
 
     constructor (rows, colums, mines) {
         this._ROWS = Number(rows);
         this._COLUMS = Number(colums);
         this._MINES = Number(mines);
-
+        this._ALL_CELLS = this._ROWS * this._COLUMS;
         this.buildMinefield()
     }
 
@@ -17,9 +19,11 @@ export default class Game {
         document.getElementById('game-settings-form').style.display = 'none';
         document.getElementById('game-settings-form-custom').style.display = 'none';
         document.getElementById('main-container').style.display = 'none';
+        document.getElementById('minefield-container').style.display = 'flex';
+        this._MINES_FOR_COUNTING = this._MINES;
+        document.getElementById('count-mines').innerText = `${this._MINES_FOR_COUNTING}`;
         const MINEFIELD = document.getElementById('minefield');
         MINEFIELD.innerHTML = '';
-        MINEFIELD.style.display = 'flex';
 
         let pos_y = 1;
         for(let i = 0; i < this._ROWS; i++){
@@ -47,27 +51,27 @@ export default class Game {
     }
 
     clickOnCell(cell, first_click = 0) {
+        
         if(first_click == 1){
-            console.log(cell)
-            this.generateMines(cell);
+            this.generateMines(cell, 1);
             return
-        }
-        if(cell.classList == 'cell opened'){
-            this.checkNeighbors(cell, 0, 1)
-            return
-        }
-        if(cell.classList == 'cell flaged'){
-            return
-        }
-        if(this.isMine(cell) == 0){
-            this.checkNeighbors(cell);
-        }else{
-            this.openMines(cell);
+        }else {
+            if(cell.classList == 'cell opened'){
+                this.checkNeighbors(cell, 0, 1)
+                return
+            }
+            if(cell.classList == 'cell flaged'){
+                return
+            }
+            if(this.isMine(cell) == 0){
+                this.checkNeighbors(cell);
+            }else{
+                this.openMines(cell);
+            }
         }
     }
 
     generateMines(cell) {
-        console.log('отработал generateMines');
         if (this._MINES < this._ROWS * this._COLUMS) {
             this._MINES_POS = [];
             
@@ -91,9 +95,7 @@ export default class Game {
                     k++
                 }
             }
-            console.log(this._MINES_POS);
             const isMine = this.isMine(cell);
-            console.log(`это мина: ${isMine}`)
             if (isMine == 1) this.generateMines(cell);
             else this.checkNeighbors(cell, 1);
         }else {
@@ -102,6 +104,9 @@ export default class Game {
         }
     }
     checkNeighbors(cell, first_click = 0, isCheck = 0) {
+        if (cell.classList.contains('opened') && isCheck === 0) {
+            return;
+        }
         const x = Number(cell.dataset.x);
         const y = Number(cell.dataset.y);
         let minesCount = 0;
@@ -117,7 +122,6 @@ export default class Game {
                     else neighbors.push(neighbor);
 
                     const isMine = this.isMine(neighbor);
-                    console.log(isMine)
                     minesCount = minesCount + isMine;
                 }
             }
@@ -125,31 +129,52 @@ export default class Game {
         if(isCheck == 1) {
             if(flagsCount == minesCount) {
                 for(let neighborCell of neighbors){
+                    
                     if(this.isMine(neighborCell) == 1) this.openMines(neighborCell);
                     else {
                         this.checkNeighbors(neighborCell);
                     }
                 }
+            }else {
+                for(let neighborCell of neighbors){
+                    neighborCell.classList.add('checked');
+                    setTimeout(() => {
+                        neighborCell.classList.remove('checked');
+                    }, 200)
+                }
             }
-        }
-        else {
+        }else {
+            if(first_click !== 0){
+                if(minesCount != 0){
+                    this.generateMines(cell, 1)
+                    return
+                }else {
+                    cell.innerHTML = ``;
+                    this._CLICKS = 1;
+                    this.openCell(cell);
+
+                    for(let neighborCell of neighbors){
+                        this.checkNeighbors(neighborCell);
+                    }
+                    return
+                }
+            }
             if(minesCount != 0){
                 cell.innerHTML = `${minesCount}`;
+                if(minesCount == 1) cell.style.color = 'blue';
+                if(minesCount == 2) cell.style.color = 'green';
+                if(minesCount == 3) cell.style.color = 'red';
+                if(minesCount == 4) cell.style.color = 'darkblue';
+                if(minesCount == 5) cell.style.color = 'darkred';
+                if(minesCount == 6) cell.style.color = 'darkcyan';
+                if(minesCount == 7) cell.style.color = 'purple';
+                if(minesCount == 8) cell.style.color = 'grey';
                 this.openCell(cell);
             }else{
                 cell.innerHTML = ``;
                 this.openCell(cell);
                 for(let neighborCell of neighbors){
                     this.checkNeighbors(neighborCell);
-                }
-            }
-            console.log(`количество мин вокруг: ${minesCount}`)
-            if(first_click !== 0){
-                if(minesCount != 0){
-                    this.generateMines(cell, 1)
-                }else {
-                    this._CLICKS = 1;
-                    this.openCell(cell);
                 }
             }
         }
@@ -165,6 +190,10 @@ export default class Game {
 
     openCell(cell){
         cell.classList = 'cell opened';
+        this._ALL_CELLS--;
+        if(this._ALL_CELLS - this._MINES == 0){
+            this.endGame(true)
+        }
     }
     openMines(cell){
         cell.classList = 'cell opened-mine'
@@ -173,16 +202,29 @@ export default class Game {
         let el;
         for(let i = 0; i < this._MINES_POS.length; i++){
             el = this._MINES_POS[i];
-            console.log(el)
             posX = el.x;
             posY = el.y;
             if(posX == cell.dataset.x & posY == cell.dataset.y) continue
             document.querySelector(`.cell[data-x="${posX}"][data-y="${posY}"]`).classList = 'cell mine';
         }
+        this.endGame(false)
     }
     setFlag(cell) {
         if(cell.classList.contains('opened')) return
-        if(cell.classList.contains('flaged')) cell.classList.remove('flaged');
-        else cell.classList = 'cell flaged';
+        if(cell.classList.contains('flaged')) {
+            cell.classList.remove('flaged');
+            this._MINES_FOR_COUNTING++;
+            document.getElementById('count-mines').innerText = `${this._MINES_FOR_COUNTING}`;
+        }
+        else {
+            cell.classList = 'cell flaged';
+            this._MINES_FOR_COUNTING--;
+            document.getElementById('count-mines').innerText = `${this._MINES_FOR_COUNTING}`;
+        }
+    }
+    endGame(end) {
+        const text = end  ? 'Вы выйграли!' : 'Вы проиграли';
+        document.getElementById('end-game-text').innerText = `${text}`
+        document.getElementById('container-end-game').classList = `container-end-game`
     }
 }
