@@ -218,6 +218,8 @@ export default class Game {
         cell.classList = 'cell opened';
         this._ALL_CELLS--;
         if(this._ALL_CELLS - this._MINES == 0){
+            document.getElementById('restart-game').disabled = false;
+            document.getElementById('main-menu').disabled = false;
             this.endGame(true)
         }
     }
