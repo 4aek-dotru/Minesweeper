@@ -44,6 +44,7 @@ document.getElementById('game-settings-form-custom').onsubmit = e => {
     minesInFirstGame = values[2];
     if(rowsInFirstGame < 4) alert('Мало строк');
     else if(columsInFirstGame < 4) alert('Мало столбцов');
+    else if(minesInFirstGame < 4) alert('Мало мин');
     else if((columsInFirstGame * rowsInFirstGame - minesInFirstGame) < 12) alert('Много мин');
     else _game = new Game(values[0], values[1], values[2]);
 }
