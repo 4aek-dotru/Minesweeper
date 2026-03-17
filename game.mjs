@@ -247,6 +247,7 @@ export default class Game {
         }
     }
     endGame(end) {
+        clearInterval(this._TIMER_ID);
         const text = end  ? 'Вы выйграли!' : 'Вы проиграли';
         const smile = end ? '😎' : '😵';
         document.getElementById('restart-in-game').innerHTML = `${smile}`;
