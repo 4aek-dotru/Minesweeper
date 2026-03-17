@@ -54,10 +54,12 @@ document.getElementById('restart-in-game').onclick = e => {
 }
 document.getElementById('restart-game').onclick = e => {
     document.getElementById('container-end-game').classList = ``;
+    _game.destroy();
     _game = null;
     _game = new Game(rowsInFirstGame, columsInFirstGame, minesInFirstGame)
 }
 document.getElementById('main-menu').onclick = e => {
+    _game.destroy();
     _game = null;
     document.getElementById('container-end-game').classList = ``;
     document.getElementById('main-container').style.display = 'flex';
