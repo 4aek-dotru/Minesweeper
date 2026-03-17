@@ -48,6 +48,7 @@ main{
 }
 .difficulty-selector-button {
     display: flex;
+    cursor: pointer;
     flex-direction: column;
     gap: 10px;
     padding: 10px;
@@ -61,6 +62,7 @@ main{
 }
 #game-settings-button {
     display: flex;
+    cursor: pointer;
     flex-direction: column;
     gap: 10px;
     padding: 10px;
@@ -74,6 +76,7 @@ main{
 }
 #game-settings-custom-button {
     display: flex;
+    cursor: pointer;
     flex-direction: column;
     gap: 10px;
     padding: 10px;
@@ -139,6 +142,7 @@ input::-webkit-inner-spin-button {
 }
 #go-custom-game {
     display: flex;
+    cursor: pointer;
     width: 300px;
     gap: 10px;
     padding: 10px;
@@ -151,15 +155,31 @@ input::-webkit-inner-spin-button {
 }
 #count-mines-container {
     display: flex;
-    flex-direction: column;
+    width: 50px;
     justify-content: center;
     align-items: center;
+    gap: 3px;
 }
 #minefield-container {
     display: none;
+    flex-direction: column;
+    gap: 5px;
+}
+#restart-in-game {
+    display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+#minefield-container > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.33);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 5px;
 }
 #minefield {
     display: flex;
@@ -174,9 +194,6 @@ input::-webkit-inner-spin-button {
     align-items: center;
     padding: 10px;
 }
-#restart-in-game > img {
-    width: 30px;
-}
 #count-mines-container > img {
     width: 25px;
 }
@@ -184,7 +201,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     gap: 2px;
 }
-.cell:not(.opened):hover {
+.cell:not(.opened, .mine):hover {
     background: #BCBCBC;
 }
 .cell {

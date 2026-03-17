@@ -6,6 +6,10 @@ export default class Game {
     _CLICKS = 0;
     _ALL_CELLS;
     _MINES_FOR_COUNTING;
+    _SEC_IN_GAME = 0;
+    _MINUTES_IN_GAME = 0;
+    _HOURS_IN_GAME = 0;
+    _TIMER_ID;
 
     constructor (rows, colums, mines) {
         this._ROWS = Number(rows);
@@ -16,6 +20,8 @@ export default class Game {
     }
 
     buildMinefield() {
+        document.getElementById('restart-in-game').innerHTML = '😊';
+        document.getElementById('time-in-game').innerHTML = '0 мин. 0 сек.';
         document.getElementById('game-settings-form').style.display = 'none';
         document.getElementById('game-settings-form-custom').style.display = 'none';
         document.getElementById('main-container').style.display = 'none';
@@ -49,11 +55,29 @@ export default class Game {
             pos_y++
         }
     }
+    destroy() {
+        if (this._TIMER_ID) {
+            clearInterval(this._TIMER_ID);
+            this._TIMER_ID = null;
+        }
+    }
+    timer() {
+        this._TIMER_ID = setInterval(() => {
+            const timerContainer = document.getElementById('time-in-game');
+            this._SEC_IN_GAME++;
+            if(this._SEC_IN_GAME == 59){
+                this._MINUTES_IN_GAME++;
+                this._SEC_IN_GAME = 0;
+            }
+            timerContainer.innerHTML = `${this._MINUTES_IN_GAME} мин. ${this._SEC_IN_GAME} сек.`
+        }, 1000);
+    }
 
     clickOnCell(cell, first_click = 0) {
         
         if(first_click == 1){
             this.generateMines(cell, 1);
+            this.timer();
             return
         }else {
             if(cell.classList == 'cell opened'){
@@ -224,7 +248,9 @@ export default class Game {
     }
     endGame(end) {
         const text = end  ? 'Вы выйграли!' : 'Вы проиграли';
-        document.getElementById('end-game-text').innerText = `${text}`
-        document.getElementById('container-end-game').classList = `container-end-game`
+        const smile = end ? '😎' : '😵';
+        document.getElementById('restart-in-game').innerHTML = `${smile}`;
+        document.getElementById('end-game-text').innerText = `${text}`;
+        document.getElementById('container-end-game').classList = `container-end-game`;
     }
 }

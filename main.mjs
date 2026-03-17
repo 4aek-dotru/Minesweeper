@@ -48,6 +48,7 @@ document.getElementById('game-settings-form-custom').onsubmit = e => {
     else _game = new Game(values[0], values[1], values[2]);
 }
 document.getElementById('restart-in-game').onclick = e => {
+    _game.destroy();
     _game = null;
     _game = new Game(rowsInFirstGame, columsInFirstGame, minesInFirstGame)
 }
