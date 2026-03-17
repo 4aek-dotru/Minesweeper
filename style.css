@@ -205,7 +205,8 @@ input::-webkit-inner-spin-button {
     background: #BCBCBC;
 }
 .cell {
-    box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    transition: 0.1s;
+    box-shadow: 0px -5px 4px 0px rgba(0, 0, 0, 0.25) inset;
     font-family: "Roboto", sans-serif !important;
     width:33px;
     height: 33px;
@@ -219,18 +220,35 @@ input::-webkit-inner-spin-button {
     font-weight: bolder;
 }
 .opened {
-    box-shadow: 0px -5px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25) inset;
     background: #E0E0E0;
+}
+#restart-game {
+    cursor: pointer;
+}
+#main-menu {
+    cursor: pointer;
 }
 .checked {
     transition: 0.1s;
     background: #BCBCBC;
 }
 .opened-mine {
-    background: rgb(182, 29, 29);
+    box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    background-position: center !important;
+    background-image: url(images/mine.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 27px !important;
+    background: #d4bbbb;
 }
 .mine {
-    background: rgb(100, 0, 0);
+    box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    background-size: 15px !important;
+    background-position: center !important;
+    background-image: url(images/mine.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 27px !important;
+    background: #E0E0E0;
 }
 .flaged {
     background-size: 15px !important;
@@ -257,6 +275,7 @@ input::-webkit-inner-spin-button {
     color: white;
 }
 #end-game {
+    transition: 1s;
     backdrop-filter: blur(2.5px); 
     background: rgba(255, 255, 255, 0.2); 
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);

@@ -20,6 +20,8 @@ export default class Game {
     }
 
     buildMinefield() {
+        document.getElementById('restart-game').disabled = true;
+        document.getElementById('main-menu').disabled = true;
         document.getElementById('restart-in-game').innerHTML = '😊';
         document.getElementById('time-in-game').innerHTML = '0 мин. 0 сек.';
         document.getElementById('game-settings-form').style.display = 'none';
@@ -221,17 +223,20 @@ export default class Game {
     }
     openMines(cell){
         cell.classList = 'cell opened-mine'
-        let posX;
-        let posY;
-        let el;
         for(let i = 0; i < this._MINES_POS.length; i++){
-            el = this._MINES_POS[i];
-            posX = el.x;
-            posY = el.y;
+            const el = this._MINES_POS[i];
+            const posX = el.x;
+            const posY = el.y;
             if(posX == cell.dataset.x & posY == cell.dataset.y) continue
-            document.querySelector(`.cell[data-x="${posX}"][data-y="${posY}"]`).classList = 'cell mine';
+            setTimeout(() => {
+                if(i == (this._MINES_POS.length - 1)) {
+                    document.getElementById('restart-game').disabled = false;
+                    document.getElementById('main-menu').disabled = false;
+                }
+                document.querySelector(`.cell[data-x="${posX}"][data-y="${posY}"]`).classList = 'cell mine';
+            }, i * 30);
         }
-        this.endGame(false)
+        this.endGame(false);
     }
     setFlag(cell) {
         if(cell.classList.contains('opened')) return
