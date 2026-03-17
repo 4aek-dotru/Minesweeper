@@ -233,7 +233,7 @@ export default class Game {
             setTimeout(() => {
                 console.log(`i - ${i}`);
                 console.log(this._MINES_POS.length)
-                if(i == (this._MINES_POS.length - 1)) {
+                if(i == (this._MINES_POS.length - 2)) {
                     document.getElementById('restart-game').disabled = false;
                     document.getElementById('main-menu').disabled = false;
                 }
