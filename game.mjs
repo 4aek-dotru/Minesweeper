@@ -231,6 +231,8 @@ export default class Game {
             const posY = el.y;
             if(posX == cell.dataset.x & posY == cell.dataset.y) continue
             setTimeout(() => {
+                console.log(`i - ${i}`);
+                console.log(this._MINES_POS.length)
                 if(i == (this._MINES_POS.length - 1)) {
                     document.getElementById('restart-game').disabled = false;
                     document.getElementById('main-menu').disabled = false;
