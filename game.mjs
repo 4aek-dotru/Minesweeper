@@ -20,8 +20,6 @@ export default class Game {
     }
 
     buildMinefield() {
-        document.getElementById('restart-game').disabled = true;
-        document.getElementById('main-menu').disabled = true;
         document.getElementById('restart-in-game').innerHTML = '😊';
         document.getElementById('time-in-game').innerHTML = '0 мин. 0 сек.';
         document.getElementById('game-settings-form').style.display = 'none';
@@ -222,19 +220,13 @@ export default class Game {
         }
     }
     openMines(cell){
-        cell.classList = 'cell opened-mine'
+        cell.classList = 'cell opened-mine';
         for(let i = 0; i < this._MINES_POS.length; i++){
             const el = this._MINES_POS[i];
             const posX = el.x;
             const posY = el.y;
             if(posX == cell.dataset.x & posY == cell.dataset.y) continue
-            setTimeout(() => {
-                if(i == (this._MINES_POS.length - 1)) {
-                    document.getElementById('restart-game').disabled = false;
-                    document.getElementById('main-menu').disabled = false;
-                }
-                document.querySelector(`.cell[data-x="${posX}"][data-y="${posY}"]`).classList = 'cell mine';
-            }, i * 30);
+            document.querySelector(`.cell[data-x="${posX}"][data-y="${posY}"]`).classList = 'cell mine';
         }
         this.endGame(false);
     }
